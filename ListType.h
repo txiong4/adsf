@@ -1,5 +1,8 @@
 #ifndef LISTTYPE_H
 #define LISTTYPE_H
+#include <cstddef>
+#include <ostream>
+#include <string>
 
 template<class T>
 class ListType
@@ -12,7 +15,7 @@ class ListType
         virtual bool insert(const T&) = 0; 
         virtual void eraseAll();
         virtual bool erase(const T&) = 0; 
-        virtual bool find(const T&) = 0;
+        virtual bool find(const T&) const = 0;
         size_t size() const;
         bool empty() const;
         bool full() const;
@@ -30,7 +33,7 @@ class ListType
 
 //overload "=" and copy an array from source
 template <class T>
-const ListType<T>::ListType<T>& operator = (const ListType<T>& source)
+const ListType<T>& ListType<T>::operator=(const ListType<T>& source)
 {
     copy(source);
     return this;
@@ -51,13 +54,13 @@ ListType<T>::ListType(size_t n)
 
 //copy array to another array
 template <class T>
-void ListType<T>::copy(const ListType<T>&)
+void ListType<T>::copy(const ListType<T>& source)
 {
-    capacity = source.capacity;
-    count = source.count;
-    list = new T[capacity];
-    for(i = 0; i < count; ++i)
-        list[i] = source.list[i];
+    this->capacity = source.capacity;
+    this->count = source.count;
+    this->list = new T[capacity];
+    for(size_t i = 0; i < source.count; ++i)
+        this->list[i] = source.list[i];
 }
 
 // this is a constructor that copies array.
@@ -68,7 +71,7 @@ ListType<T>::ListType(const ListType<T>& source)
 }
 
 template <class T>
-virtual void ListType<T>::eraseAll()
+void ListType<T>::eraseAll()
 {
     capacity = 0;
 }
@@ -76,7 +79,7 @@ virtual void ListType<T>::eraseAll()
 template <class T>
 bool ListType<T>::full() const
 {
-    if(this->count = this->capacity)
+    if(this->count == this->capacity)
         return false;
     else
         return true;
@@ -98,7 +101,7 @@ size_t ListType<T>::size() const
 template<class U>
 std::ostream& operator << (std::ostream& out, const ListType<U>& source)
 {
-    if(!source.empty)
+    if(!source.empty())
     {
         out << source.list[0];
         for(int i = 1; i < source.count; ++i)

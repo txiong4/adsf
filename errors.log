@@ -1,0 +1,6 @@
+In file included from Program02.cpp:1:0:
+UListType.h: In instantiation of ‘bool UListType<T>::insert(const T&) [with T = int]’:
+Program02.cpp:9:1:   required from here
+UListType.h:33:30: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             for(int i = 0; i < this->count; ++i)
+                            ~~^~~~~~~~~~~~~

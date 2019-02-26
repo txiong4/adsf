@@ -13,7 +13,7 @@ class UListType : public ListType<T>
 };
 
 template<class T>
-UListType::UListType<T>(size_t n) : ListType<T>::ListType(n) { }
+UListType<T>::UListType(size_t n) : ListType<T>::ListType(n) { }
 
 // insert an "item" at the end of the list. The list is unorder.
 //check if the list is full
@@ -28,16 +28,16 @@ bool UListType<T>::insert(const T& item)
     {
         try
         {
-            T* temp = new T[capacity*2];
+            T* temp = new T[this->capacity*2];
             
             for(int i = 0; i < this->count; ++i)
             {
-                temp[i] = this->list[i] 
+                temp[i] = this->list[i];
             }
             temp[this->count] = item;
             ++this->count;
-            delete [] list;
-            list = temp;
+            delete [] this->list;
+            this->list = temp;
         }
         catch(std::bad_alloc)
         {
@@ -46,7 +46,7 @@ bool UListType<T>::insert(const T& item)
     }
     else
     {
-        this->list[count] = item;
+        this->list[this->count] = item;
         this->count++;
     }
     return true;
@@ -63,10 +63,10 @@ bool UListType<T>::erase(const T& item)
                 --this->count;
             else
             {
-                std::swap(list[i], list[count-1]);
+                std::swap(this->list[i], this->list[this->count-1]);
                 --this->count;
             }
-            return true
+            return true;
         }
     }
     return false;
