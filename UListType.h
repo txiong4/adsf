@@ -55,7 +55,7 @@ bool UListType<T>::insert(const T& item)
 template <class T>
 bool UListType<T>::erase(const T& item)
 {
-    for(size_t i = 0; i < this->count; i++)
+    for(size_t i = 0; i < this->count; ++i)
     {
         if(this->list[i] == item)
         {

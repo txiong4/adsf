@@ -24,7 +24,7 @@ class ListType
 
 
     protected:
-        size_t count, capacity;
+        size_t count = 0 , capacity;
         T* list;
 
     private:
@@ -50,6 +50,7 @@ template <class T>
 ListType<T>::ListType(size_t n)
 {
     capacity = n;
+    this->list = new T[capacity];
 }
 
 //copy array to another array
@@ -80,9 +81,9 @@ template <class T>
 bool ListType<T>::full() const
 {
     if(this->count == this->capacity)
-        return false;
-    else
         return true;
+    else
+        return false;
 }
 
 template <class T>
